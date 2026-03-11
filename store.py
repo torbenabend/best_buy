@@ -76,7 +76,7 @@ class Store:
         return active_products
 
 
-    def order(self, shopping_list: list[tuple[Product, int]]):
+    def order(self, shopping_list: list[tuple[Product, str]]):
         """
         Process an order consisting of multiple products and quantities.
 
@@ -96,10 +96,8 @@ class Store:
                 the store.
         """
         total_price = 0
-        for item in shopping_list:
-            product = item[0]
+        for product, quantity in shopping_list:
             if product not in self.products:
                 raise ValueError(f"Product {product.name} not found in store.")
-            quantity = item[1]
-            total_price += product.buy(quantity)
+            total_price += product.buy(int(quantity))
         return total_price
